@@ -14,8 +14,20 @@ function solveEquation(a, b, c) {
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
   let totalAmount;
+  let intPercent = parseInt(percent);
+  if (Number.isNaN(intPercent)) return `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`;
+  let intContribution = parseInt(contribution);
+  if (Number.isNaN(intContribution)) return `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`;
+  let intAmount = parseInt(amount);
+  if (Number.isNaN(intAmount)) return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`;
 
-  // код для задачи №2 писать здесь
+  let loan = intAmount - intContribution; //тело кредита
+  let today = new Date();
+  let months = Math.round( (date - today) / 86400000 / 30.5); //перевод из милисекунд в месяцы
+  let p = percent / 1200; //ставка за месяц
+  let payment = loan * (p + (p / (Math.pow((1 + p), months) - 1)));
+  totalAmount = Number((months * payment).toFixed(2)); 
 
+  console.log(totalAmount);
   return totalAmount;
 }
