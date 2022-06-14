@@ -1,5 +1,5 @@
 function cachingDecoratorNew(func) {
-  let cache = {length: 0};
+  let cache = {};
 
   function wrapper(...args) {
     const hash = args.join(',');
